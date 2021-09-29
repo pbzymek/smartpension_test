@@ -2,6 +2,7 @@ require 'optparse'
 
 require_relative '../file_readers/json_reader'
 require_relative '../file_readers/plain_line_reader'
+
 module CommandLine
   class Parser
     attr_reader :argv
@@ -12,9 +13,14 @@ module CommandLine
 
     def parse
       options = default_options
+
       OptionParser.new do |opt|
-        opt.on('--file_name FILENAME', String, 'File to process <filename>') { |file_name| options[:file_name] = file_name }
-        opt.on('--file_reader READERTYPE', String, 'File type [plain_file, json]') { |file_reader| puts file_reader; puts file_reader_map[file_reader]; options[:file_reader] = file_reader_map[file_reader] }
+        opt.on('--file_name FILENAME', String, 'File to process <filename>') do |file_name|
+          options[:file_name] = file_name
+        end
+        opt.on('--file_reader READERTYPE', String, 'File type [plain_file, json]') do |file_reader|
+          options[:file_reader] = file_reader_map[file_reader]
+        end
         opt.on('--processor_type processorType1,processorType2,processorTypeN',
                Array,
                'Processor to run against the file name [most_unique_visits]') do |processors|

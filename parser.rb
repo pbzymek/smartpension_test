@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require_relative 'lib/command_line/parser'
 require_relative 'lib/file_readers/plain_line_reader'
 require_relative 'lib/interactors/logs_parser'
